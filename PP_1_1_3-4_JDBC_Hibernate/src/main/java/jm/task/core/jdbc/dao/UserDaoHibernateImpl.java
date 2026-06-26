@@ -21,7 +21,19 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        util.initialiZeSession();
+        try (Session session = util.getSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.createNativeQuery("CREATE TABLE IF NOT EXISTS user " +
+                    "(" +
+                    "id BIGINT PRIMARY KEY AUTO_INCREMENT, " +
+                    "name VARCHAR(50) NOT NULL, " +
+                    "lastname VARCHAR(50) NOT NULL, " +
+                    "age TINYINT NOT NULL" +
+                    ")").executeUpdate();
+            transaction.commit();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

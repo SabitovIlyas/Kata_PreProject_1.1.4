@@ -48,12 +48,4 @@ public class Util {
         }
         return sessionFactory;
     }
-
-    public void initialiZeSession() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-        }
-        sessionFactory = null;
-        getSessionFactory();
-    }
 }

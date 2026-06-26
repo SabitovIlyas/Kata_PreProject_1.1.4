@@ -11,21 +11,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
     private final Connection connection = new Util().getConnection();
 
-    public UserDaoJDBCImpl() {
-    }
-
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users " +
-                    "(" +
-                    "id BIGINT PRIMARY KEY AUTO_INCREMENT, " +
-                    "name VARCHAR(50) NOT NULL, " +
-                    "lastname VARCHAR(50) NOT NULL, " +
-                    "age TINYINT NOT NULL" +
-                    ")"
-            );
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY AUTO_INCREMENT, " +
+                    "name VARCHAR(50) NOT NULL, lastname VARCHAR(50) NOT NULL, age TINYINT NOT NULL)");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -33,7 +23,6 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DROP TABLE IF EXISTS users");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -45,7 +34,6 @@ public class UserDaoJDBCImpl implements UserDao {
             ps.setByte(3, age);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -54,7 +42,6 @@ public class UserDaoJDBCImpl implements UserDao {
             ps.setLong(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -74,7 +61,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
         return users;
     }
@@ -83,7 +69,6 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM users");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 }

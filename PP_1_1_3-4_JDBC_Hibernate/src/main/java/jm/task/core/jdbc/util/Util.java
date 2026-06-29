@@ -27,11 +27,7 @@ public class Util {
         return connection;
     }
 
-    public Session getSession() {
-        return getSessionFactory().openSession();
-    }
-
-    private SessionFactory getSessionFactory() {
+    public SessionFactory getSession() {
         if (sessionFactory == null) {
             sessionFactory = new Configuration()
                     .addAnnotatedClass(User.class)
